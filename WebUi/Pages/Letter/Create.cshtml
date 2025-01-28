@@ -1,0 +1,205 @@
+﻿@page
+@using Domain.Enum
+@model WebUi.Pages.Letter.CreateModel
+
+@section Style {
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.css">
+
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.css">
+}
+@section Script {
+        <script src="~/vendor/libs/select2/select2.js"></script>
+
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+    <script src="~/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+    <script src="~/vendor/libs/bootstrap-select/i18n/defaults-fa_IR.js"></script>
+    <script src="~/vendor/libs/select2/select2.js"></script>
+    <script src="~/vendor/libs/select2/i18n/fa.js"></script>
+    <script src="~/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+    <script src="~/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+    <script src="~/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+    <script src="~/js/form-wizard-numbered.js"></script>
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.js"></script>
+    <script src="~/js/form-wizard-validation.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/js/Page/Letter/Letter.js"></script>
+}
+<div class="row">
+    <form class="card">
+        <div class="card-header">
+            <h3>ایجاد نامه جدید</h3>
+        </div>
+        <div class="card-body">
+
+
+            <div class="bs-stepper wizard-numbered mt-2">
+                <div class="bs-stepper-header">
+                    <div class="step crossed" data-target="#account-details">
+                        <button type="button" class="step-trigger" aria-selected="false">
+                            <span class="bs-stepper-circle">1</span>
+                            <span class="bs-stepper-label">
+                                <span class="bs-stepper-title">جزئیات نامه</span>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step active" data-target="#personal-info">
+                        <button type="button" class="step-trigger" aria-selected="true">
+                            <span class="bs-stepper-circle">2</span>
+                            <span class="bs-stepper-label">
+                                <span class="bs-stepper-title">گیرندگان </span>
+                            </span>
+                        </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#social-links">
+                        <button type="button" class="step-trigger" aria-selected="false">
+                            <span class="bs-stepper-circle">3</span>
+                            <span class="bs-stepper-label">
+                                <span class="bs-stepper-title">پیوست</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="bs-stepper-content">
+                  
+                        <!-- Account Details -->
+                        <div id="account-details" class="content">
+                            <div class="content-header mb-3">
+                                <h6 class="mb-1">جزئیات نامه</h6>
+                                <small>اطلاعات نامه را وارد کنید.</small>
+                            </div>
+                            <div class="row g-3">
+
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                    <label class="form-label">عنوان</label>
+                                    <input type="text" class="form-control"
+                                           placeholder="عنوان نامه را بنویسید." />
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                                    <label class="form-label">کلاسه پرونده</label>
+                                    <input type="text" class="form-control"
+                                           placeholder="کلاسه  را بنویسید." />
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                                    <label class="form-label">ارجعیت</label>
+                                    <select class="form-select" asp-items="Html.GetEnumSelectList<PriorityType>()">
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label mt-3">متن نامه </label>
+                                    <textarea id="Body" type="text" class="form-control" rows="7">
+                                     </textarea>
+                                </div>
+
+                                <div class="col-12 d-flex justify-content-between">
+                                <button type="button" class="btn btn-label-secondary btn-prev" disabled="">
+                                        <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                        <span class="d-sm-inline-block d-none">قبلی</span>
+                                    </button>
+                                <button type="button" class="btn btn-primary btn-next">
+                                        <span class="d-sm-inline-block d-none">بعدی</span>
+                                        <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Personal Info -->
+                        <div id="personal-info" class="content active dstepper-block">
+                            <div class="content-header mb-3">
+                                <h6 class="mb-1">گیرندگان </h6>
+                                <small>گیرندگان  را انتخاب کنید.</small>
+                            </div>
+                            <div class="row g-3">
+                               
+                                   
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="last-name">گیرندگان اصلی</label>
+                                    <select 
+                                        class="select2 form-select" 
+                                    multiple="" >
+                                    @if (Model.JanUsers !=null && Model.JanUsers!.Any())
+                                    {
+                                        @foreach (var item in Model.JanUsers!)
+                                        {
+                                            <option value="@item.username">@item.name</option>
+                                        }
+                                    }
+                                    
+                                </select>
+                                </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="last-name">گیرندگان رونوشت</label>
+                                <select class="select2 form-select"
+                                        multiple="">
+                                    @if (Model.JanUsers != null && Model.JanUsers!.Any())
+                                    {
+                                        @foreach (var item in Model.JanUsers!)
+                                        {
+                                            <option value="@item.username">@item.name</option>
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                                <div class="col-12 d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary btn-prev">
+                                        <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                        <span class="d-sm-inline-block d-none">قبلی</span>
+                                    </button>
+                                <button type="button" class="btn btn-primary btn-next">
+                                        <span class="d-sm-inline-block d-none">بعدی</span>
+                                        <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Social Links -->
+                        <div id="social-links" class="content">
+                            <div class="content-header mb-3">
+                            <h6 class="mb-1">پیوست</h6>
+                            <small>یک یا چند فایل پیوست کنید.</small>
+                            <div id="errorMessage" class="error"></div>
+
+                            </div>
+                            <div class="row g-3">
+                           <div class="col-4">
+                                <div class="mb-3">
+                                    <label for="formFileMultiple" class="form-label">نمونه ورودی فایل چند انتخابی</label>
+                                    <input class="form-control" type="file"
+                                           id="fileInput" multiple onchange="addFiles()" >
+                                </div>
+                           </div>
+                            <div class="col-12">   
+                                <div class="table-responsive text-nowrap">
+                                    <table id="fileTable" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>عنوان</th>
+                                                <th>حجم</th>
+                                                <th>عملیات</th>
+                                               
+                                            </tr>
+                                        </thead>
+                                        <tbody class="table-border-bottom-0">
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                                <div class="col-12 d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary btn-prev">
+                                        <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                                        <span class="d-sm-inline-block d-none">قبلی</span>
+                                    </button>
+                                <button class="btn btn-success btn-submit">ثبت</button>
+                                </div>
+                            </div>
+                        </div>
+                
+                </div>
+            </div>
+        </div>
+        <div class="card-footer"></div>
+    </form>
+</div>
