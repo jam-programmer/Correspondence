@@ -34,6 +34,47 @@ internal static class FileProcessing
         }
         return "notFound.jpg";
     }
+
+    public static async Task<string> UploadFileAsync(
+       this IFormFile file,
+       string folder,
+       string? defaultFileName = null)
+    {
+        if (file != null && file.Length > 0)
+        {
+            
+            string fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+            string folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "File", folder);
+
+          
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            string filePath = Path.Combine(folderPath, fileName);
+
+          
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+         
+            if (file.ContentType.StartsWith("image/"))
+            {
+                var image = SixLabors.ImageSharp.Image.Load(file.OpenReadStream());
+                var webpFilePath = Path.ChangeExtension(filePath, ".webp");
+                await image.SaveAsWebpAsync(webpFilePath);
+                return fileName; 
+            }
+
+            return fileName; 
+        }
+
+       
+        return !string.IsNullOrEmpty(defaultFileName) ? defaultFileName : "notFound.jpg";
+    }
     public static BaseResult RemoveImage(this string fileName,
         string folder, string? defualt = null)
     {
@@ -62,3 +103,6 @@ internal static class FileProcessing
         }
     }
 }
+
+   
+

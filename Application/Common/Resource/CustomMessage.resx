@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FirstSignIn" xml:space="preserve">
+    <value>کاربر برای اولین بار وارد سامانه شد.</value>
+  </data>
+  <data name="RequiredLetterNumber" xml:space="preserve">
+    <value>کلاسه پرونده را وارد کنید.</value>
+  </data>
+  <data name="RequiredLetterReferrerOriginal" xml:space="preserve">
+    <value>یک یا چند گیرنده برای نامه انتخاب کنید.</value>
+  </data>
+  <data name="RequiredLetterText" xml:space="preserve">
+    <value>متن نامه را وارد کنید.</value>
+  </data>
+  <data name="RequiredLetterTitle" xml:space="preserve">
+    <value>عنوان را وارد کنید.</value>
+  </data>
+  <data name="SignInUser" xml:space="preserve">
+    <value>کاربر وارد سامانه شد.</value>
+  </data>
   <data name="WebServiceException" xml:space="preserve">
     <value>خطای وب سرویس رخ داده است.</value>
   </data>

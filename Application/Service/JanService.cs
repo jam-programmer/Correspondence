@@ -1,5 +1,6 @@
 ﻿using Application.Common;
 using Application.Contract;
+using Application.DataTransferObject;
 using Application.Policy;
 using Application.ViewModel;
 using Microsoft.Extensions.Logging;
@@ -43,5 +44,28 @@ public class JanService : IJanService
             });
         });
         return users!;
+    }
+    public async Task<BaseResult<JanUserDto>> ChackUserAccessForLoginAsync(LoginDto login)
+    {
+        JanUserDto? userAccess = new();
+        await _apiPolicy.ExecuteAsync(async () =>
+        {
+            userAccess = await _apiService.PostAsync<JanUserDto>
+            (new ApiOption()
+            {
+                BaseUrl = _options.Value.BaseUrl + login.path,
+                DataBody = login
+            });
+        });
+        if (userAccess == null)
+        {
+
+            return BaseResult<JanUserDto>.Fail(ResultType.Client);
+        }
+        if (userAccess.success)
+        {
+            return BaseResult<JanUserDto>.Success(userAccess);
+        }
+        return BaseResult<JanUserDto>.Fail(ResultType.System);
     }
 }

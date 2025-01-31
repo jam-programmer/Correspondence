@@ -1,13 +1,12 @@
-﻿using Application.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common;
+using Application.DataTransferObject;
+using Application.ViewModel;
 
 namespace Application.Service;
 
 public interface IJanService
 {
+    Task<BaseResult<JanUserDto>> ChackUserAccessForLoginAsync(LoginDto login);
+
     Task<List<JanUserViewModel>> GetUsersAsync();
 }

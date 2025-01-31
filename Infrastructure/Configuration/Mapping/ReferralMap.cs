@@ -14,8 +14,9 @@ internal class ReferralMap :
 {
     public void Configure(EntityTypeBuilder<ReferralEntity> builder)
     {
-        builder.ToTable("Referral");
-        builder.Property(p => p.Description).IsRequired()
+        builder.ToTable("Referral"); builder.Property(p => p.Status).IsRequired();
+
+        builder.Property(p => p.Description).IsRequired(false)
             .HasMaxLength(2500);
         builder.HasOne(o => o.Letter)
             .WithMany(m => m.Referrals)

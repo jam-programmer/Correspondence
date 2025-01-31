@@ -15,10 +15,9 @@ internal class LetterMap : IEntityTypeConfiguration<LetterEntity>
     {
         builder.ToTable("Letter");
        
-        builder.Property(p => p.Referrer).IsRequired();
+        builder.Property(p => p.UserName).IsRequired();
         builder.Property(p => p.Type).IsRequired();
         builder.Property(p => p.Priority).IsRequired();
-        builder.Property(p => p.Status).IsRequired();
         builder.Property(p => p.Text).IsRequired();
         builder.Property(p => p.Title).IsRequired()
             .HasMaxLength(900);

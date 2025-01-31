@@ -50,6 +50,25 @@ namespace Infrastructure.Migrations
                     b.ToTable("Action", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.AttachmentEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LetterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LetterId");
+
+                    b.ToTable("Attachment", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.LetterEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -64,10 +83,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("Priority")
                         .HasColumnType("int");
-
-                    b.Property<string>("Referrer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -84,6 +99,10 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Letter", (string)null);
@@ -99,15 +118,19 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(2500)
                         .HasColumnType("nvarchar(2500)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("LetterId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ReferralRecipient")
-                        .IsRequired()
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -121,6 +144,17 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.LetterEntity", "Letter")
                         .WithMany("Actions")
+                        .HasForeignKey("LetterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Letter");
+                });
+
+            modelBuilder.Entity("Domain.Entities.AttachmentEntity", b =>
+                {
+                    b.HasOne("Domain.Entities.LetterEntity", "Letter")
+                        .WithMany("Attachments")
                         .HasForeignKey("LetterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -142,6 +176,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.LetterEntity", b =>
                 {
                     b.Navigation("Actions");
+
+                    b.Navigation("Attachments");
 
                     b.Navigation("Referrals");
                 });

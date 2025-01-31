@@ -25,7 +25,7 @@
     <script src="~/js/Page/Letter/Letter.js"></script>
 }
 <div class="row">
-    <form class="card">
+    <div class="card">
         <div class="card-header">
             <h3>ایجاد نامه جدید</h3>
         </div>
@@ -61,7 +61,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="bs-stepper-content">
+                <div  class="bs-stepper-content" >
                   
                         <!-- Account Details -->
                         <div id="account-details" class="content">
@@ -73,23 +73,33 @@
 
                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                                     <label class="form-label">عنوان</label>
-                                    <input type="text" class="form-control"
+                                    <input type="text"
+                                       id="Title"
+                                    
+                                        class="form-control"
                                            placeholder="عنوان نامه را بنویسید." />
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                                     <label class="form-label">کلاسه پرونده</label>
-                                    <input type="text" class="form-control"
+                                    <input type="text"
+                                       id="Number"
+                                       class="form-control"
                                            placeholder="کلاسه  را بنویسید." />
+
                                 </div>
                                 <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                                     <label class="form-label">ارجعیت</label>
-                                    <select class="form-select" asp-items="Html.GetEnumSelectList<PriorityType>()">
+                                <select id="Priority"
+                                       
+                                        class="form-select" asp-items="Html.GetEnumSelectList<PriorityType>()">
                                     </select>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label mt-3">متن نامه </label>
-                                    <textarea id="Body" type="text" class="form-control" rows="7">
-                                     </textarea>
+                                <textarea  id="Body" type="text" class="form-control" rows="7">
+
+                                     </textarea> 
+                               
                                 </div>
 
                                 <div class="col-12 d-flex justify-content-between">
@@ -115,9 +125,10 @@
                                    
                                 <div class="col-sm-6">
                                     <label class="form-label" for="last-name">گیرندگان اصلی</label>
-                                    <select 
-                                        class="select2 form-select" 
-                                    multiple="" >
+                                    <select id="ReferrerOriginal"
+                                       
+                                        class="select2 form-select ReferrerOriginal"
+                                        multiple="" >
                                     @if (Model.JanUsers !=null && Model.JanUsers!.Any())
                                     {
                                         @foreach (var item in Model.JanUsers!)
@@ -126,11 +137,12 @@
                                         }
                                     }
                                     
-                                </select>
-                                </div>
+                                </select> 
+                                 </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="last-name">گیرندگان رونوشت</label>
-                                <select class="select2 form-select"
+                                <select id="ReferrerCopy" class="select2 form-select ReferrerCopy"
+                                       
                                         multiple="">
                                     @if (Model.JanUsers != null && Model.JanUsers!.Any())
                                     {
@@ -167,6 +179,7 @@
                                 <div class="mb-3">
                                     <label for="formFileMultiple" class="form-label">نمونه ورودی فایل چند انتخابی</label>
                                     <input class="form-control" type="file"
+                                          
                                            id="fileInput" multiple onchange="addFiles()" >
                                 </div>
                            </div>
@@ -187,12 +200,19 @@
                                     </table>
                                 </div>
                             </div>
-                                <div class="col-12 d-flex justify-content-between">
-                                <button type="button" class="btn btn-primary btn-prev">
-                                        <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
+                            <div class="col-12 d-flex justify-content-start">
+                                <button type="button" class="btn btn-primary btn-prev mx-1">
+                                        <i class="bx bx-chevron-left bx-sm ms-sm-n2 "></i>
                                         <span class="d-sm-inline-block d-none">قبلی</span>
                                     </button>
-                                <button class="btn btn-success btn-submit">ثبت</button>
+                                <a onclick="submitForm('1')"
+                                    class="btn btn-info text-white mx-1">ذخیره به عنوان پیش نویس</a>
+                               
+                                
+                                <button onclick="submitForm('0')"
+                                        class="btn btn-success mx-1">
+                                    ثبت
+                                </button>
                                 </div>
                             </div>
                         </div>
@@ -201,5 +221,5 @@
             </div>
         </div>
         <div class="card-footer"></div>
-    </form>
+    </div>
 </div>

@@ -31,9 +31,9 @@ public static class Cofiguration
                 });
 
         });
-
-
        
+
+
 
         service.AddScoped<IContext, ContextProvider>();
         service.AddScoped(typeof(IRepository<>), typeof(Repository<>));

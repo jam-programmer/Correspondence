@@ -61,6 +61,60 @@ namespace Application.Common.Resource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to کاربر برای اولین بار وارد سامانه شد..
+        /// </summary>
+        public static string FirstSignIn {
+            get {
+                return ResourceManager.GetString("FirstSignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کلاسه پرونده را وارد کنید..
+        /// </summary>
+        public static string RequiredLetterNumber {
+            get {
+                return ResourceManager.GetString("RequiredLetterNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to یک یا چند گیرنده برای نامه انتخاب کنید..
+        /// </summary>
+        public static string RequiredLetterReferrerOriginal {
+            get {
+                return ResourceManager.GetString("RequiredLetterReferrerOriginal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to متن نامه را وارد کنید..
+        /// </summary>
+        public static string RequiredLetterText {
+            get {
+                return ResourceManager.GetString("RequiredLetterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to عنوان را وارد کنید..
+        /// </summary>
+        public static string RequiredLetterTitle {
+            get {
+                return ResourceManager.GetString("RequiredLetterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کاربر وارد سامانه شد..
+        /// </summary>
+        public static string SignInUser {
+            get {
+                return ResourceManager.GetString("SignInUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to خطای وب سرویس رخ داده است..
         /// </summary>
         public static string WebServiceException {

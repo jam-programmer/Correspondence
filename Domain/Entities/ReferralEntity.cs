@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ public class ReferralEntity:BaseEntity
     public string? UserName { set; get; }
     public string? FullName{ set;get;}
     public string? Description {  get; set; }
+    public ReferralType Type { set; get; }
+    public StatusType Status { get; set; }
     public DateTime CreateAt { get; set; } = DateTime.Now;
     #region Relation
     public LetterEntity? Letter { get; set; }

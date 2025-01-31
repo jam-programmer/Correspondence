@@ -1,13 +1,29 @@
 using Infrastructure.Configuration;
 using Application;
 using Application.Common;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<Setting>(builder.Configuration.GetSection("Setting"));
 // Add services to the container.
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 20 * 1024 * 1024;
+
+});
 builder.Services.AddRazorPages();
 builder.Services.Application(builder.Configuration);
 builder.Services.Infrastructure(builder.Configuration);
+
+builder.Services.AddRazorPages()
+        .AddRazorPagesOptions(options =>
+        {
+            options.Conventions
+                   .ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+        });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
